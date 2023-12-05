@@ -4,6 +4,8 @@ const PORT = 8888;
 
 app.set('view engine', 'ejs');
 
+
+
 app.get('/home', (req, res) => {
     res.render('home')
 })
