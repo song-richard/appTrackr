@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const PORT = 8888;
+const mongoCred = require('./config/config');
 
 app.set('view engine', 'ejs');
 
