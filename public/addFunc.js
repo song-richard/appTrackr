@@ -3,14 +3,18 @@ console.log("adddFunc.js loaded!")
 const addBtn = document.querySelector('#addBtn');
 
 function getFormData() {
-    const employerVal = document.querySelector('#employerVal').value;
-    const dateTimeVal = document.querySelector('#dateTimeVal').value;
-    const appOptionsVal = document.querySelector('#appOptionsVal').value;
+    const jobTitleVal = document.querySelector('#jobTitle').value;
+    const compamyVal = document.querySelector('#company').value;
+    const applicationDateVal = document.querySelector('#applicationDate').value;
+    const statusVal = document.querySelector('#status').value;
+    const notesVal = document.querySelector('#notes').value;
 
     return {
-        employerVal: employerVal,
-        dateTimeVal: dateTimeVal,
-        appOptionsVal: appOptionsVal
+        jobTitleVal: jobTitleVal,
+        compamyVal: compamyVal,
+        applicationDateVal: applicationDateVal,
+        statusVal: statusVal,
+        notesVal: notesVal
     };
 }
 
