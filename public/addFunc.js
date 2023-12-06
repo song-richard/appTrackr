@@ -1,3 +1,5 @@
+console.log("adddFunc.js loaded!")
+
 const addBtn = document.querySelector('#addBtn');
 
 function getFormData() {
@@ -18,7 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function addApp() {
     try {
-        getFormData();
+        const formData = getFormData();
+        console.log(formData);
     } catch (err) {
         console.error(err)
     }
