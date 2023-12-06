@@ -21,9 +21,6 @@ const jobApplicationSchema = new mongoose.Schema({
     notes: {
         type: String,
     },
-    followUpDate: {
-        type: Date,
-    },
 });
 
 const JobApplication = mongoose.model('JobApplication', jobApplicationSchema);

@@ -1,28 +1,47 @@
-console.log("adddFunc.js loaded!")
+console.log("adddFunc.js loaded!");
 
 const addBtn = document.querySelector('#addBtn');
 
 function getFormData() {
-    const employerVal = document.querySelector('#employerVal').value;
-    const dateTimeVal = document.querySelector('#dateTimeVal').value;
-    const appOptionsVal = document.querySelector('#appOptionsVal').value;
+    const jobTitleVal = document.querySelector('#jobTitle').value;
+    const compamyVal = document.querySelector('#company').value;
+    const applicationDateVal = document.querySelector('#applicationDate').value;
+    const statusVal = document.querySelector('#status').value;
+    const notesVal = document.querySelector('#notes').value;
 
-    return {
-        employerVal: employerVal,
-        dateTimeVal: dateTimeVal,
-        appOptionsVal: appOptionsVal
+    try {
+        return {
+            jobTitleVal: jobTitleVal,
+            compamyVal: compamyVal,
+            applicationDateVal: applicationDateVal,
+            statusVal: statusVal,
+            notesVal: notesVal
+        };
+    } finally {
+        resetFields();
     };
-}
+
+    function resetFields() {
+        document.querySelector('#jobTitle').value = '';
+        document.querySelector('#company').value = '';
+        document.querySelector('#applicationDate').value = '';
+        document.querySelector('#status').value = '';
+        document.querySelector('#notes').value = '';
+    };
+};
 
 document.addEventListener('DOMContentLoaded', function() {
-    addBtn.addEventListener('click', addApp)
+    addBtn.addEventListener('click', addApp);
 })
 
 async function addApp() {
     try {
         const formData = getFormData();
         console.log(formData);
+
+        // await axios.post('/add-app', { formData })
+
     } catch (err) {
-        console.error(err)
-    }
-}
+        console.error(err);
+    };
+};

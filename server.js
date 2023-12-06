@@ -14,6 +14,10 @@ app.get('/home', (req, res) => {
     res.render('home')
 })
 
+app.post('/add-app', (req, res) => {
+    const {  } = req.body
+})
+
 app.listen(`${PORT}`, (req, res) => {
     console.log(`Listening on PORT: ${PORT}`);
 })
