@@ -14,7 +14,7 @@ app.get('/home', (req, res) => {
     res.render('home')
 })
 
-app.get('add-app', (req, res) => {
+app.get('/add-app', (req, res) => {
     const {  } = req.body
 })
 

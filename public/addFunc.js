@@ -22,6 +22,9 @@ async function addApp() {
     try {
         const formData = getFormData();
         console.log(formData);
+
+        await axios.post('')
+
     } catch (err) {
         console.error(err)
     }
