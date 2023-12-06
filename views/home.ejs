@@ -4,25 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>appTrackr</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <h1>Welcome to appTrackr!</h1>
     
     <label>Add Application:
         <form>
-            <input type="text" placeholder="Employer">
-            <input type="datetime-local">
-            <select>
+            <input id="employerVal" type="text" placeholder="Employer">
+            <input id="dateTimeVal" type="datetime-local">
+            <select id="appOptionsVal">
                 <option>Applied</option>
+                <option>In Progress</option>
+                <option>Interviewed</option>
+                <option>Offered</option>
                 <option>Rejected</option>
-                <option>In-Contact</option>
             </select>
-            <button type="button">Add</button>
+            <button id="addBtn" type="button">Add</button>
         </form>
     </label>
 
     <h2>Applications:</h2>
     <ul id="appListUL"></ul>
-
+<script src="/public/addFunc.js"></script>
 </body>
 </html>
