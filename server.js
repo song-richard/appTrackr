@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = 8888;
+const PORT = 3000
 const mongoCred = require('./config/config');
 const mongoose = require('mongoose');
 const mongoSchema = require('./models/appSchema')
@@ -18,10 +18,15 @@ app.get('/home', (req, res) => {
 })
 
 app.post('/add-app', async (req, res) => {
-    const { jobTitle, company, applicationDate, status, notes } = req.body;
-    await mongoSchema.create( { jobTitle, company, applicationDate, status, notes } )
-    res.status(201).json( { message: 'Successfully posted to MongoDB!' })
-})
+    try {
+        const { jobTitle, company, applicationDate, status, notes } = req.body;
+        await JobApplication.create({ jobTitle, company, applicationDate, status, notes });
+        res.status(201).json({ message: 'Successfully posted to MongoDB!' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 app.listen(`${PORT}`, (req, res) => {
     console.log(`Listening on PORT: ${PORT}`);

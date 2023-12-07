@@ -4,15 +4,15 @@ const addBtn = document.querySelector('#addBtn');
 
 function getFormData() {
     const jobTitleVal = document.querySelector('#jobTitle').value;
-    const compamyVal = document.querySelector('#company').value;
-    const applicationDateVal = document.querySelector('#applicationDate').value;
+    const companyVal = document.querySelector('#company').value;
+    const applicationDateVal = new Date(document.querySelector('#applicationDate').value);
     const statusVal = document.querySelector('#status').value;
     const notesVal = document.querySelector('#notes').value;
 
     try {
         return {
             jobTitle: jobTitleVal,
-            company: compamyVal,
+            company: companyVal,
             applicationDate: applicationDateVal,
             status: statusVal,
             notes: notesVal
