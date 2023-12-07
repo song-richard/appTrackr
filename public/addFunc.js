@@ -12,7 +12,7 @@ function getFormData() {
     try {
         return {
             jobTitle: jobTitleVal,
-            compamy: compamyVal,
+            company: compamyVal,
             applicationDate: applicationDateVal,
             status: statusVal,
             notes: notesVal
