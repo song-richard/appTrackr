@@ -4,21 +4,21 @@ const addBtn = document.querySelector('#addBtn');
 
 function getFormData() {
     const jobTitleVal = document.querySelector('#jobTitle').value;
-    const compamyVal = document.querySelector('#company').value;
-    const applicationDateVal = document.querySelector('#applicationDate').value;
+    const companyVal = document.querySelector('#company').value;
+    const applicationDateVal = new Date(document.querySelector('#applicationDate').value);
     const statusVal = document.querySelector('#status').value;
     const notesVal = document.querySelector('#notes').value;
 
     try {
         return {
-            jobTitleVal: jobTitleVal,
-            compamyVal: compamyVal,
-            applicationDateVal: applicationDateVal,
-            statusVal: statusVal,
-            notesVal: notesVal
+            jobTitle: jobTitleVal,
+            company: companyVal,
+            applicationDate: applicationDateVal,
+            status: statusVal,
+            notes: notesVal
         };
     } finally {
-        resetFields();
+        resetFields()
     };
 
     function resetFields() {
@@ -37,9 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
 async function addApp() {
     try {
         const formData = getFormData();
-        console.log(formData);
-
-        // await axios.post('/add-app', { formData })
+        console.log(formData)
+        await axios.post('/add-app', formData)
+        console.log("Posted to MongoDB!");
 
     } catch (err) {
         console.error(err);

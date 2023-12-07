@@ -11,7 +11,7 @@ const jobApplicationSchema = new mongoose.Schema({
     },
     applicationDate: {
         type: Date,
-        default: Date.now,
+        default: null,
     },
     status: {
         type: String,
