@@ -18,7 +18,7 @@ function getFormData() {
             notes: notesVal
         };
     } finally {
-        resetFields();
+        resetFields()
     };
 
     function resetFields() {
@@ -38,7 +38,7 @@ async function addApp() {
     try {
         const formData = getFormData();
         console.log(formData)
-        await axios.post('/add-app', { formData })
+        await axios.post('/add-app', formData)
         console.log("Posted to MongoDB!");
 
     } catch (err) {
