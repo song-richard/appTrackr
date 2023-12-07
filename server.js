@@ -3,20 +3,24 @@ const app = express();
 const PORT = 8888;
 const mongoCred = require('./config/config');
 const mongoose = require('mongoose');
+const mongoSchema = require('./models/appSchema')
+const cors = require('cors')
 
 connectToMongoDB();
 
 app.use(express.static('public'));
 app.use(express.json())
+app.use(cors())
 app.set('view engine', 'ejs');
 
 app.get('/home', (req, res) => {
     res.render('home')
 })
 
-app.post('/add-app', (req, res) => {
+app.post('/add-app', async (req, res) => {
     const { jobTitle, company, applicationDate, status, notes } = req.body;
-    
+    await mongoSchema.create( { jobTitle, company, applicationDate, status, notes } )
+    res.status(201).json( { message: 'Successfully posted to MongoDB!' })
 })
 
 app.listen(`${PORT}`, (req, res) => {

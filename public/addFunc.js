@@ -11,11 +11,11 @@ function getFormData() {
 
     try {
         return {
-            jobTitleVal: jobTitleVal,
-            compamyVal: compamyVal,
-            applicationDateVal: applicationDateVal,
-            statusVal: statusVal,
-            notesVal: notesVal
+            jobTitle: jobTitleVal,
+            compamy: compamyVal,
+            applicationDate: applicationDateVal,
+            status: statusVal,
+            notes: notesVal
         };
     } finally {
         resetFields();
@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
 async function addApp() {
     try {
         const formData = getFormData();
-        
-        await axios.post('/add-app', { formData });
+        console.log(formData)
+        await axios.post('/add-app', { formData })
         console.log("Posted to MongoDB!");
 
     } catch (err) {
