@@ -15,7 +15,8 @@ app.get('/home', (req, res) => {
 })
 
 app.post('/add-app', (req, res) => {
-    const {  } = req.body
+    const { jobTitle, company, applicationDate, status, notes } = req.body;
+    
 })
 
 app.listen(`${PORT}`, (req, res) => {
