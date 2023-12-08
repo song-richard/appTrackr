@@ -20,7 +20,6 @@ function getFormData() {
     } finally {
         resetFields()
     };
-
     function resetFields() {
         document.querySelector('#jobTitle').value = '';
         document.querySelector('#company').value = '';
