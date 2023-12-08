@@ -1,5 +1,9 @@
 console.log("adddFunc.js loaded!");
 
+const listApps = require('../public/listApps')
+
+listApps()
+
 const addBtn = document.querySelector('#addBtn');
 
 function getFormData() {

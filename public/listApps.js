@@ -1,12 +1,13 @@
+console.log("listApps.js loaded!")
 
 async function retrieveApps() {
-    const listUL = document.querySelector('appListUL');
+    const listUL = document.querySelector('#appListUL');
     try {
         const response = await axios.get('/get-app');
         const applications = response.data["application"];
         applications.forEach(app => {
             let newLi = document.createElement('li');
-            newLi.textContent = app.textContent;
+            newLi.textContent = app.jobTitle;
             newLi.dataset.appId = app._id;
             listUL.appendChild(newLi);
         });
@@ -14,3 +15,5 @@ async function retrieveApps() {
         console.log(err)
     };
 };
+
+retrieveApps()

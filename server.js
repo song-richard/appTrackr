@@ -19,11 +19,19 @@ app.get('/home', (req, res) => {
 
 app.get('/get-app', async (req, res) => {
     try {
-        const { } = JobApplication.findById()
+        const applications = await JobApplication.find({}, {
+            jobTitle: 1,
+            company: 1,
+            applicationDate: 1,
+            status: 1,
+            notes: 1
+        });
+        res.json({ application: applications });
     } catch (err) {
-        console.error(err)
+        console.error(err);
+        res.status(500).send('Internal Server Error');
     }
-})
+});
 
 app.post('/add-app', async (req, res) => {
     try {
