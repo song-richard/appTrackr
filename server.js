@@ -17,6 +17,14 @@ app.get('/home', (req, res) => {
     res.render('home')
 })
 
+app.get('/get-app', async (req, res) => {
+    try {
+        const { } = JobApplication.findById()
+    } catch (err) {
+        console.error(err)
+    }
+})
+
 app.post('/add-app', async (req, res) => {
     try {
         const { jobTitle, company, applicationDate, status, notes } = req.body;
