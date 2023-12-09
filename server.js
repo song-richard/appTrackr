@@ -46,16 +46,19 @@ app.post('/add-app', async (req, res) => {
 });
 
 app.put('/update-app/:appId', async (req, res) => {
-    const { appid } = req.params;
-    const updates = req.body;
+    const { appId } = req.params;
+    const { [field]: newValue } = req.body;
+    console.log(`Updating application with ID ${appId}. Updates received:`, updates);
+
     try {
-        const updatedApplication = await Application.findByIdAndUpdate(appId, updates, { new: true });
-        res.json(updatedApplication)
+        const updatedApplication = await JobApplication.findByIdAndUpdate(appId, { [field]: newValue }, { new: true });
+        console.log('Updated application:', updatedApplication);
+        res.json(updatedApplication);
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
     }
-})
+});
 
 app.listen(`${PORT}`, (req, res) => {
     console.log(`Listening on PORT: ${PORT}`);

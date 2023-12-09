@@ -36,7 +36,10 @@ async function retrieveApps() {
                 const newValue = window.prompt(`Enter the new ${field.charAt(0).toUpperCase() + field.slice(1)}:`);
                 if (newValue) {
                     try {
-                        await axios.put(`/update-task/${app._id}`, { [field]: newValue });
+                        const url = `/update-app/${app._id}`;
+                        console.log('PUT URL:', url);
+                        
+                        await axios.put(`/update-app/${app._id}`, { [`${field}`]: newValue });
                         app[field] = newValue;
                         updateUI();
                     } catch (err) {
