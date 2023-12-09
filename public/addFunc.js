@@ -1,6 +1,4 @@
-console.log("adddFunc.js loaded!");
-
-// const listApps = require('../public/listApps')
+console.log("addFunc.js loaded!");
 
 const addBtn = document.querySelector('#addBtn');
 
