@@ -45,11 +45,15 @@ app.post('/add-app', async (req, res) => {
     }
 });
 
-app.put('/edit-app', async (req, res) => {
+app.put('/update-app/:appId', async (req, res) => {
+    const { appid } = req.params;
+    const updates = req.body;
     try {
-        await JobApplication.findByIdAndUpdate()
+        const updatedApplication = await Application.findByIdAndUpdate(appId, updates, { new: true });
+        res.json(updatedApplication)
     } catch (err) {
-        console.error(err)
+        console.error(err);
+        res.status(500).send('Internal Server Error');
     }
 })
 
