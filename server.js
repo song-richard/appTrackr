@@ -45,6 +45,14 @@ app.post('/add-app', async (req, res) => {
     }
 });
 
+app.put('/edit-app', async (req, res) => {
+    try {
+        await JobApplication.findByIdAndUpdate()
+    } catch (err) {
+        console.error(err)
+    }
+})
+
 app.listen(`${PORT}`, (req, res) => {
     console.log(`Listening on PORT: ${PORT}`);
 })
