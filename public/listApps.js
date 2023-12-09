@@ -15,7 +15,7 @@ async function retrieveApps() {
 
             newLi.innerHTML = `
                 <strong>Job Title:</strong> ${app.jobTitle}<br>
-                <strong>Company:</strong> ${app.company}<br>
+                <strong>Company:</strong> ${app.company}<br> 
                 <strong>Application Date:</strong> ${app.applicationDate ? new Date(app.applicationDate).toLocaleDateString() : 'N/A'}<br>
                 <strong>Status:</strong> ${app.status}<br>
                 <strong>Notes:</strong> ${app.notes ? app.notes : 'N/A'}<br><br>
@@ -24,6 +24,30 @@ async function retrieveApps() {
             listUL.appendChild(newLi);
             newLi.appendChild(editBtn);
             newLi.appendChild(deleteBtn);
+
+            async function updateField(field) {
+                const newValue = window.prompt(`Enter the new ${field.charAt(0).toUpperCase() + field.slice(1)}:`);
+                if (newValue) {
+                    try {
+                        await axios.put(`/update-task/${app._id}`, { [field]: newValue });
+                        app[field] = newValue;
+                        updateUI();
+                    } catch (err) {
+                        console.error(err);
+                    }
+                }
+            }
+
+        function updateUI() {
+            newLi.innerHTML = `
+                <strong>Job Title:</strong> ${app.jobTitle}<br>
+                <strong>Company:</strong> ${app.company}<br>
+                <strong>Application Date:</strong> ${app.applicationDate ? new Date(app.applicationDate).toLocaleDateString() : 'N/A'}<br>
+                <strong>Status:</strong> ${app.status}<br>
+                <strong>Notes:</strong> ${app.notes ? app.notes : 'N/A'}<br><br>
+            `;
+        }
+
         });
     } catch (err) {
         console.log(err)

@@ -1,6 +1,7 @@
 console.log("adddFunc.js loaded!");
 
 const addBtn = document.querySelector('#addBtn');
+const editBtn = document.querySelector('#')
 
 function getFormData() {
     const jobTitleVal = document.querySelector('#jobTitle').value;
