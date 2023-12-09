@@ -7,8 +7,13 @@ async function retrieveApps() {
         const applications = response.data["application"];
         applications.forEach(app => {
             let newLi = document.createElement('li');
-            newLi.textContent = app.jobTitle;
-            newLi.dataset.appId = app._id;
+            newLi.innerHTML = `
+                <strong>Job Title:</strong> ${app.jobTitle}<br>
+                <strong>Company:</strong> ${app.company}<br>
+                <strong>Application Date:</strong> ${app.applicationDate ? new Date(app.applicationDate).toLocaleDateString() : 'N/A'}<br>
+                <strong>Status:</strong> ${app.status}<br>
+                <strong>Notes:</strong> ${app.notes ? app.notes : 'N/A'}
+            `;            newLi.dataset.appId = app._id;
             listUL.appendChild(newLi);
         });
     } catch (err) {
