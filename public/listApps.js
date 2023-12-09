@@ -25,6 +25,13 @@ async function retrieveApps() {
             newLi.appendChild(editBtn);
             newLi.appendChild(deleteBtn);
 
+            editBtn.addEventListener('click', function() {
+                const editOption = window.prompt('What would you like to edit? (jobTitle, company, applicationDate, status, notes)')
+                if (editOption) {
+                    updateField(editOption.toLowerCase())
+                }
+            })
+
             async function updateField(field) {
                 const newValue = window.prompt(`Enter the new ${field.charAt(0).toUpperCase() + field.slice(1)}:`);
                 if (newValue) {
