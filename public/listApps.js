@@ -7,6 +7,12 @@ async function retrieveApps() {
         const applications = response.data["application"];
         applications.forEach(app => {
             let newLi = document.createElement('li');
+            let editBtn = document.createElement('button');
+            let deleteBtn = document.createElement('button');
+
+            editBtn.innerHTML = 'Edit';
+            deleteBtn.innerHTML = 'Delete';
+
             newLi.innerHTML = `
                 <strong>Job Title:</strong> ${app.jobTitle}<br>
                 <strong>Company:</strong> ${app.company}<br>
@@ -14,7 +20,10 @@ async function retrieveApps() {
                 <strong>Status:</strong> ${app.status}<br>
                 <strong>Notes:</strong> ${app.notes ? app.notes : 'N/A'}<br><br>
             `;            newLi.dataset.appId = app._id;
+
             listUL.appendChild(newLi);
+            newLi.appendChild(editBtn);
+            newLi.appendChild(deleteBtn);
         });
     } catch (err) {
         console.log(err)
