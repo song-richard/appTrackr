@@ -133,24 +133,38 @@ async function retrieveApps() {
                     <strong>Status:</strong> ${app.status}<br>
                     <strong>Notes:</strong> ${app.notes ? app.notes : 'N/A'}<br><br>
                 `;
-
+            
                 newLi.style.marginBottom = '1px';
-
-                const listId = getListIdForStatus(app.status);
-                const listUL = document.querySelector(`#${listId}`);
-                listUL.appendChild(newLi);
-
+            
                 editBtn.innerHTML = 'Edit';
                 editBtn.className = 'mr-2 py-1 px-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300';
                 newLi.appendChild(editBtn);
-
+            
                 deleteBtn.innerHTML = 'Delete';
                 deleteBtn.className = 'py-1 px-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300';
                 newLi.appendChild(deleteBtn);
-
-                editBtn.style.marginBottom = '20x';
+            
+                editBtn.style.marginBottom = '20px';
                 deleteBtn.style.marginBottom = '20px';
+            
+                editBtn.addEventListener('click', function () {
+                    const editOption = window.prompt(
+                        'What would you like to edit? (job, company, applicationDate, status, notes)'
+                    );
+                    if (editOption) {
+                        updateField(editOption.toLowerCase());
+                    }
+                });
+            
+                deleteBtn.addEventListener('click', function () {
+                    const deleteOption = window.confirm('Are you sure you want to delete this?');
+                    if (deleteOption) {
+                        axios.delete(`/delete-app/${app._id}`);
+                        newLi.remove();
+                    }
+                });
             }
+
         });
     } catch (err) {
         console.log(err);
