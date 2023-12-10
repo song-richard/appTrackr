@@ -171,4 +171,19 @@ async function retrieveApps() {
     }
 }
 
+async function retrieveAppCounts() {
+    try {
+        const response = await axios.get('/get-app-counts');
+        const counts = response.data.counts;
+
+        document.getElementById('appliedCount').textContent = counts['Applied'] || 0;
+        document.getElementById('interviewingCount').textContent = counts['In Progress'] || 0;
+        document.getElementById('interviewedCount').textContent = counts['Interviewed'] || 0;
+        document.getElementById('rejectedCount').textContent = counts['Rejected'] || 0;
+        document.getElementById('offersCount').textContent = counts['Offer'] || 0;
+    } catch (err) {
+        console.log(err);
+    }
+}
+retrieveAppCounts();
 retrieveApps();

@@ -31,7 +31,7 @@ function getFormData() {
 
 document.addEventListener('DOMContentLoaded', function() {
     addBtn.addEventListener('click', addApp);
-})
+});
 
 async function addApp() {
     try {
