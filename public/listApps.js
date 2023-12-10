@@ -1,10 +1,29 @@
 console.log('listApps.js loaded!');
 
+document.addEventListener('DOMContentLoaded', function () {
+    retrieveAppCounts();
+    retrieveApps();
+
+    const addBtnDOM = document.querySelector('#addBtn');
+    addBtnDOM.addEventListener('click', function () {
+        retrieveAppCounts();
+        retrieveApps();
+    });
+});
+
+
 async function retrieveApps() {
     const listUL = document.querySelector('#appListUL');
     const interviewingUL = document.querySelector('#interviewingUL');
     const interviewedUL = document.querySelector('#interviewedUL');
     const rejectedUL = document.querySelector('#rejectedUL');
+    const offeredUL = document.querySelector('#offeredUL')
+
+    listUL.innerHTML = '';
+    interviewingUL.innerHTML = '';
+    interviewedUL.innerHTML = '';
+    rejectedUL.innerHTML = '';
+    offeredUL.innerHTML = '';
 
     try {
         const response = await axios.get('/get-app');
@@ -45,6 +64,9 @@ async function retrieveApps() {
                     break;
                 case 'Rejected':
                     rejectedUL.appendChild(newLi);
+                    break;
+                    case 'Offered':
+                    offeredUL.appendChild(newLi);
                     break;
                 default:
                     listUL.appendChild(newLi);
@@ -88,7 +110,7 @@ async function retrieveApps() {
                 );
                 if (editOption) {
                     updateField(editOption.toLowerCase());
-                }
+                };
             });
 
             deleteBtn.addEventListener('click', function () {
@@ -96,8 +118,10 @@ async function retrieveApps() {
                 if (deleteOption) {
                     axios.delete(`/delete-app/${app._id}`);
                     newLi.remove();
-                }
+                    retrieveAppCounts();
+                };
             });
+            retrieveAppCounts();
 
             async function updateField(field) {
                 const newValue = window.prompt(
@@ -117,9 +141,9 @@ async function retrieveApps() {
                         updateUI();
                     } catch (err) {
                         console.error(err);
-                    }
-                }
-            }
+                    };
+                };
+            };
 
             function updateUI() {
                 newLi.innerHTML = `
@@ -136,25 +160,52 @@ async function retrieveApps() {
 
                 newLi.style.marginBottom = '1px';
 
-                const listId = getListIdForStatus(app.status);
-                const listUL = document.querySelector(`#${listId}`);
-                listUL.appendChild(newLi);
-
                 editBtn.innerHTML = 'Edit';
                 editBtn.className = 'mr-2 py-1 px-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300';
                 newLi.appendChild(editBtn);
-
+            
                 deleteBtn.innerHTML = 'Delete';
                 deleteBtn.className = 'py-1 px-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300';
                 newLi.appendChild(deleteBtn);
-
-                editBtn.style.marginBottom = '20x';
+            
+                editBtn.style.marginBottom = '20px';
                 deleteBtn.style.marginBottom = '20px';
+            
+                editBtn.addEventListener('click', function () {
+                    const editOption = window.prompt(
+                        'What would you like to edit? (job, company, applicationDate, status, notes)'
+                    );
+                    if (editOption) {
+                        updateField(editOption.toLowerCase());
+                    }
+                });
+            
+                deleteBtn.addEventListener('click', function () {
+                    const deleteOption = window.confirm('Are you sure you want to delete this?');
+                    if (deleteOption) {
+                        axios.delete(`/delete-app/${app._id}`);
+                        newLi.remove();
+                    }
+                });
             }
+
         });
     } catch (err) {
         console.log(err);
     }
 }
 
-retrieveApps();
+async function retrieveAppCounts() {
+    try {
+        const response = await axios.get('/get-app-counts');
+        const counts = response.data.counts;
+
+        document.getElementById('appliedCount').textContent = counts['Applied'] || 0;
+        document.getElementById('interviewingCount').textContent = counts['In Progress'] || 0;
+        document.getElementById('interviewedCount').textContent = counts['Interviewed'] || 0;
+        document.getElementById('rejectedCount').textContent = counts['Rejected'] || 0;
+        document.getElementById('offersCount').textContent = counts['Offered'] || 0;
+    } catch (err) {
+        console.log(err);
+    };
+};

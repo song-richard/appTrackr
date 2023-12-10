@@ -29,14 +29,15 @@
     </label>
 
     <section class="bg-white p-8 rounded-lg shadow-md">
-        <div>Applications:</div>
-        <div>Interviewing:</div>
-        <div>Interviewed:</div>
-        <div>Rejected:</div>
-        <div>Offers:</div>
+        <h2 class="text-2xl font-semibold mb-4 text-blue-600">Application Counts:</h2>
+        <p>Applied: <span id="appliedCount"></span></p>
+        <p>In Progress: <span id="interviewingCount"></span></p>
+        <p>Interviewed: <span id="interviewedCount"></span></p>
+        <p>Rejected: <span id="rejectedCount"></span></p>
+        <p>Offered: <span id="offersCount"></span></p>
     </section><br>
 
-    <section id="statuses" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <section id="statuses" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
         <div class="bg-white p-8 rounded-lg shadow-md">
             <h2 class="text-2xl font-semibold mb-4 text-blue-600">Applications</h2>
             <ul id="appListUL"></ul>
@@ -56,7 +57,15 @@
             <h2 class="text-2xl font-semibold mb-4 text-blue-600">Rejected</h2>
             <ul id="rejectedUL"></ul>
         </div>
+        
+        <div class="bg-white p-8 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4 text-blue-600">Offered</h2>
+            <ul id="offeredUL"></ul>
+        </div>
+
     </section>
+
+
     
 </div>
 

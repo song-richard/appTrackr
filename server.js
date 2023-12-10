@@ -37,6 +37,24 @@ app.get('/get-app', async (req, res) => {
     }
 });
 
+app.get('/get-app-counts', async (req, res) => {
+    try {
+        const counts = await JobApplication.aggregate([
+            { $group: { _id: '$status', count: { $sum: 1 } } },
+        ]);
+
+        const countsMap = counts.reduce((acc, item) => {
+            acc[item._id] = item.count;
+            return acc;
+        }, {});
+
+        res.json({ counts: countsMap });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 app.post('/add-app', async (req, res) => {
     try {
         const { job, company, applicationDate, status, notes } = req.body;
