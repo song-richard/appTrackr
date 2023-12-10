@@ -64,6 +64,16 @@ app.put('/update-app/:appId', async (req, res) => {
     }
 });
 
+app.delete('/delete-app/:appId', async (req, res) => {
+    const { appId } = req.params;
+    try {
+        await JobApplication.findByIdAndDelete(appId)
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
 app.listen(`${PORT}`, (req, res) => {
     console.log(`Listening on PORT: ${PORT}`);
 })
