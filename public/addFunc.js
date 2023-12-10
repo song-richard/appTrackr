@@ -11,7 +11,7 @@ function getFormData() {
 
     try {
         return {
-            jobTitle: jobTitleVal,
+            job: jobTitleVal,
             company: companyVal,
             applicationDate: applicationDateVal,
             status: statusVal,

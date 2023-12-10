@@ -14,19 +14,21 @@ async function retrieveApps() {
             deleteBtn.innerHTML = 'Delete';
 
             newLi.innerHTML = `
-                <strong>Job Title:</strong> ${app.jobTitle}<br>
+                <strong>Job Title:</strong> ${app.job}<br>
                 <strong>Company:</strong> ${app.company}<br> 
                 <strong>Application Date:</strong> ${app.applicationDate ? new Date(app.applicationDate).toLocaleDateString() : 'N/A'}<br>
                 <strong>Status:</strong> ${app.status}<br>
                 <strong>Notes:</strong> ${app.notes ? app.notes : 'N/A'}<br><br>
             `;            newLi.dataset.appId = app._id;
 
+            console.log(app)
+
             listUL.appendChild(newLi);
             newLi.appendChild(editBtn);
             newLi.appendChild(deleteBtn);
 
             editBtn.addEventListener('click', function() {
-                const editOption = window.prompt('What would you like to edit? (jobTitle, company, applicationDate, status, notes)')
+                const editOption = window.prompt('What would you like to edit? (job, company, applicationDate, status, notes)')
                 if (editOption) {
                     updateField(editOption.toLowerCase());
                 };
@@ -38,24 +40,26 @@ async function retrieveApps() {
                     try {
                         const url = `/update-app/${app._id}`;
                         console.log('PUT URL:', url);
-                        
-                        await axios.put(`/update-app/${app._id}`, { [`${field}`]: newValue });
+            
+                        await axios.put(`/update-app/${app._id}`, { [field]: newValue }, { headers: { 'Content-Type': 'application/json' } });
                         app[field] = newValue;
                         updateUI();
                     } catch (err) {
                         console.error(err);
-                    };
-                };
-            };
+                    }
+                }
+            }
 
-        function updateUI() {
-            newLi.innerHTML = `
-                <strong>Job Title:</strong> ${app.jobTitle}<br>
-                <strong>Company:</strong> ${app.company}<br>
-                <strong>Application Date:</strong> ${app.applicationDate ? new Date(app.applicationDate).toLocaleDateString() : 'N/A'}<br>
-                <strong>Status:</strong> ${app.status}<br>
-                <strong>Notes:</strong> ${app.notes ? app.notes : 'N/A'}<br><br>
-            `;
+            function updateUI() {
+                newLi.innerHTML = `
+                    <strong>Job Title:</strong> ${app.job}<br>
+                    <strong>Company:</strong> ${app.company}<br>
+                    <strong>Application Date:</strong> ${app.applicationDate ? new Date(app.applicationDate).toLocaleDateString() : 'N/A'}<br>
+                    <strong>Status:</strong> ${app.status}<br>
+                    <strong>Notes:</strong> ${app.notes ? app.notes : 'N/A'}<br><br>
+                `;
+                newLi.appendChild(editBtn);
+                newLi.appendChild(deleteBtn);
         };
 
         });
