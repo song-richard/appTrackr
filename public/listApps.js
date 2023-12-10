@@ -184,7 +184,7 @@ async function retrieveAppCounts() {
         document.getElementById('interviewingCount').textContent = counts['In Progress'] || 0;
         document.getElementById('interviewedCount').textContent = counts['Interviewed'] || 0;
         document.getElementById('rejectedCount').textContent = counts['Rejected'] || 0;
-        document.getElementById('offersCount').textContent = counts['Offer'] || 0;
+        document.getElementById('offersCount').textContent = counts['Offered'] || 0;
     } catch (err) {
         console.log(err);
     }
