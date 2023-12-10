@@ -24,11 +24,19 @@ async function retrieveApps() {
             console.log(app)
 
             listUL.appendChild(newLi);
-            newLi.appendChild(editBtn);
-            editBtn.classList.add("mr-2", "py-1", "px-2", "bg-blue-500", "text-white", "rounded-md", "hover:bg-blue-600", "transition", "duration-300");
-            newLi.appendChild(deleteBtn);
-            deleteBtn.classList.add("py-1", "px-2", "bg-red-500", "text-white", "rounded-md", "hover:bg-red-600", "transition", "duration-300");
 
+            editBtn.innerHTML = 'Edit';
+            editBtn.classList.add("mr-2", "py-1", "px-2", "bg-blue-500", "text-white", "rounded-md", "hover:bg-blue-600", "transition", "duration-300");
+            newLi.appendChild(editBtn);
+            
+            deleteBtn.innerHTML = 'Delete';
+            deleteBtn.classList.add("py-1", "px-2", "bg-red-500", "text-white", "rounded-md", "hover:bg-red-600", "transition", "duration-300");
+            newLi.appendChild(deleteBtn);
+            
+            editBtn.style.marginBottom = "20px";
+            deleteBtn.style.marginBottom = "20px";
+            
+            newLi.style.marginBottom = "1px";
 
             editBtn.addEventListener('click', function() {
                 const editOption = window.prompt('What would you like to edit? (job, company, applicationDate, status, notes)')
@@ -61,11 +69,20 @@ async function retrieveApps() {
                     <strong>Status:</strong> ${app.status}<br>
                     <strong>Notes:</strong> ${app.notes ? app.notes : 'N/A'}<br><br>
                 `;
+            
+                newLi.style.marginBottom = "1px";
+            
+                editBtn.innerHTML = 'Edit';
+                editBtn.className = "mr-2 py-1 px-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300";
                 newLi.appendChild(editBtn);
-                editBtn.classList.add("mr-2", "py-1", "px-2", "bg-blue-500", "text-white", "rounded-md", "hover:bg-blue-600", "transition", "duration-300");
+            
+                deleteBtn.innerHTML = 'Delete';
+                deleteBtn.className = "py-1 px-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300";
                 newLi.appendChild(deleteBtn);
-                deleteBtn.classList.add("py-1", "px-2", "bg-red-500", "text-white", "rounded-md", "hover:bg-red-600", "transition", "duration-300");
-        };
+            
+                editBtn.style.marginBottom = "20x";
+                deleteBtn.style.marginBottom = "20px";
+            };
 
         });
     } catch (err) {
