@@ -58,6 +58,8 @@ async function retrieveApps() {
                     <strong>Status:</strong> ${app.status}<br>
                     <strong>Notes:</strong> ${app.notes ? app.notes : 'N/A'}<br><br>
                 `;
+                newLi.appendChild(editBtn);
+                newLi.appendChild(deleteBtn);
         };
 
         });
