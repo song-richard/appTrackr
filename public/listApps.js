@@ -5,6 +5,7 @@ async function retrieveApps() {
     const interviewingUL = document.querySelector('#interviewingUL');
     const interviewedUL = document.querySelector('#interviewedUL');
     const rejectedUL = document.querySelector('#rejectedUL');
+    const offeredUL = document.querySelector('#offeredUL')
 
     try {
         const response = await axios.get('/get-app');
@@ -45,6 +46,9 @@ async function retrieveApps() {
                     break;
                 case 'Rejected':
                     rejectedUL.appendChild(newLi);
+                    break;
+                    case 'Offered':
+                    offeredUL.appendChild(newLi);
                     break;
                 default:
                     listUL.appendChild(newLi);
