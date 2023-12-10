@@ -45,6 +45,13 @@ async function retrieveApps() {
                 };
             });
 
+            deleteBtn.addEventListener('click', function() {
+                const deleteOption = window.confirm("Are you sure you want to delete this?")
+                if (deleteOption) {
+                    axios.delete(`/delete-app/${app._id}`)
+                }
+            })
+
             async function updateField(field) {
                 const newValue = window.prompt(`Enter the new ${field.charAt(0).toUpperCase() + field.slice(1)}:`);
                 if (newValue) {
