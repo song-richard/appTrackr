@@ -20,7 +20,7 @@ app.get('/home', (req, res) => {
 app.get('/get-app', async (req, res) => {
     try {
         const applications = await JobApplication.find({}, {
-            jobTitle: 1,
+            job: 1,
             company: 1,
             applicationDate: 1,
             status: 1,
@@ -35,10 +35,14 @@ app.get('/get-app', async (req, res) => {
 
 app.post('/add-app', async (req, res) => {
     try {
-        const { jobTitle, company, applicationDate, status, notes } = req.body;
-        await JobApplication.create({ jobTitle, company, applicationDate, status, notes });
+        const { job, company, applicationDate, status, notes } = req.body;
+        
+        if (!job) {
+            return res.status(400).json({ error: 'Job is required' });
+        }
+
+        await JobApplication.create({ job, company, applicationDate, status, notes });
         res.status(201).json({ message: 'Successfully posted to MongoDB!' });
-        console.log(req.body)
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -47,12 +51,12 @@ app.post('/add-app', async (req, res) => {
 
 app.put('/update-app/:appId', async (req, res) => {
     const { appId } = req.params;
-    const { [field]: newValue } = req.body;
+    const updates = req.body;
     console.log(`Updating application with ID ${appId}. Updates received:`, updates);
 
     try {
-        const updatedApplication = await JobApplication.findByIdAndUpdate(appId, { [field]: newValue }, { new: true });
-        console.log('Updated application:', updatedApplication);
+        const updatedApplication = await JobApplication.findByIdAndUpdate(appId, updates, { new: true });
+        console.log(`Updated application with ID ${appId}:`, updatedApplication);
         res.json(updatedApplication);
     } catch (err) {
         console.error(err);
