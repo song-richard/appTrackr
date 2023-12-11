@@ -18,5 +18,9 @@
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.2",
     "passport": "^0.7.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
   }
 }
