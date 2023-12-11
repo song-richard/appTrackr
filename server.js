@@ -5,6 +5,8 @@ const mongoCred = require('./config/config');
 const mongoose = require('mongoose');
 const JobApplication = require('./models/appSchema')
 const cors = require('cors')
+const bcrypt = require('bcrypt');
+
 
 connectToMongoDB();
 
@@ -12,6 +14,8 @@ app.use(express.static('public'));
 app.use(express.json())
 app.use(cors())
 app.set('view engine', 'ejs');
+
+
 
 app.get('/', (req, res) => {
     res.render('login')
