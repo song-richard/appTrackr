@@ -15,22 +15,6 @@ app.use(express.json())
 app.use(cors())
 app.set('view engine', 'ejs');
 
-//For testing ----------
-const saltRounds = 10;
-
-app.get('/hash-password', (req, res) => {
-    const plainPassword = '12345';
-    const hashedPassword = bcrypt.hashSync(plainPassword, saltRounds);
-    console.log('Plain Password:', plainPassword);
-    console.log('Hashed Password:', hashedPassword);
-    res.send('Password hashed and logged in the console.');
-});
-
-const hash = bcrypt.hashSync('12345', saltRounds);
-
-console.log(hash)
-//For testing ----------
-
 
 
 app.get('/', (req, res) => {
