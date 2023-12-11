@@ -65,12 +65,13 @@ async function retrieveApps() {
                 case 'Rejected':
                     rejectedUL.appendChild(newLi);
                     break;
-                    case 'Offered':
+                case 'Offered':
                     offeredUL.appendChild(newLi);
                     break;
                 default:
                     listUL.appendChild(newLi);
             }
+            
 
             editBtn.innerHTML = 'Edit';
             editBtn.classList.add(
@@ -131,21 +132,28 @@ async function retrieveApps() {
                     try {
                         const url = `/update-app/${app._id}`;
                         console.log('PUT URL:', url);
-
-                        await axios.put(
-                            `/update-app/${app._id}`,
+            
+                        const response = await axios.put(
+                            url,
                             { [field]: newValue },
                             { headers: { 'Content-Type': 'application/json' } }
                         );
-                        app[field] = newValue;
-                        updateUI();
+                        if (response.status === 200) {
+                            app[field] = newValue;
+                            updateUI();
+                        } else {
+                            console.error('Update failed:', response.statusText);
+                        }
                     } catch (err) {
                         console.error(err);
-                    };
-                };
-            };
+                    }
+                }
+            }
 
             function updateUI() {
+                newLi.remove();
+
+
                 newLi.innerHTML = `
                     <strong>Job Title:</strong> ${app.job}<br>
                     <strong>Company:</strong> ${app.company}<br>
@@ -157,6 +165,26 @@ async function retrieveApps() {
                     <strong>Status:</strong> ${app.status}<br>
                     <strong>Notes:</strong> ${app.notes ? app.notes : 'N/A'}<br><br>
                 `;
+
+                switch (app.status) {
+                    case 'Applied':
+                        listUL.appendChild(newLi);
+                        break;
+                    case 'In Progress':
+                        interviewingUL.appendChild(newLi);
+                        break;
+                    case 'Interviewed':
+                        interviewedUL.appendChild(newLi);
+                        break;
+                    case 'Rejected':
+                        rejectedUL.appendChild(newLi);
+                        break;
+                    case 'Offered':
+                        offeredUL.appendChild(newLi);
+                        break;
+                    default:
+                        listUL.appendChild(newLi);
+                }
 
                 newLi.style.marginBottom = '1px';
 
