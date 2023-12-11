@@ -5,6 +5,8 @@ const mongoCred = require('./config/config');
 const mongoose = require('mongoose');
 const JobApplication = require('./models/appSchema')
 const cors = require('cors')
+const user = require('./config/fireBaseConfig')
+const firebaseConfig = require('./config/fireBaseConfig');
 
 connectToMongoDB();
 
