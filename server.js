@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
-const PORT = 3000
 const mongoCred = require('./config/config');
 const mongoose = require('mongoose');
 const JobApplication = require('./models/appSchema')
 const cors = require('cors')
 const bcrypt = require('bcrypt');
+
+const PORT = process.env.PORT || 3000;
 
 
 connectToMongoDB();
@@ -14,7 +15,6 @@ app.use(express.static('public'));
 app.use(express.json())
 app.use(cors())
 app.set('view engine', 'ejs');
-
 
 
 app.get('/', (req, res) => {
