@@ -9,7 +9,6 @@ const User = require('./models/userSchema');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 
-
 connectToMongoDB();
 
 app.use(express.static('public'));
@@ -21,6 +20,7 @@ app.get('/', (req, res) => {
     res.render('login')
 })
 
+//POST hashed password and email to DB
 app.post('/register', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -31,14 +31,15 @@ app.post('/register', async (req, res) => {
         console.log(email);
         console.log(hashedPassword);
     } catch (err) {
-        console.error(err)
+        console.error(err);
     };
 });
 
-//POST hashed password and email to DB
+//TODO: QUERY APPLICATIONS DEPENDING ON EMAIL/HASHED_PASSWORD MATCH
+
 
 app.get('/home', (req, res) => {
-    res.render('home')
+    res.render('home');
 });
 
 app.get('/get-app', async (req, res) => {
@@ -54,7 +55,7 @@ app.get('/get-app', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
-    }
+    };
 });
 
 app.get('/get-app-counts', async (req, res) => {
@@ -88,7 +89,7 @@ app.post('/add-app', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal Server Error' });
-    }
+    };
 });
 
 app.put('/update-app/:appId', async (req, res) => {
@@ -111,7 +112,7 @@ app.delete('/delete-app/:appId', async (req, res) => {
     try {
         await JobApplication.findByIdAndDelete(appId)
     } catch (err) {
-        console.error(err)
+        console.error(err);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 })
@@ -125,6 +126,6 @@ async function connectToMongoDB() {
         await mongoose.connect(mongoCred);
         console.log("Connected to MongoDB!")
     } catch (err) {
-        console.error(err)
-    }
-}
+        console.error(err);
+    };
+};
