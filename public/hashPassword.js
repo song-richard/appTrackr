@@ -1,4 +1,3 @@
-
 //Testing Password Hashing
 registerBtn.addEventListener('click', async function () {
     //Register Values
@@ -8,6 +7,6 @@ registerBtn.addEventListener('click', async function () {
     try {
         await axios.post('/register', { email, password });
     } catch (err) {
-        console.error(err)
+        console.error(err);
     };
 });
