@@ -15,10 +15,18 @@ app.use(express.json())
 app.use(cors())
 app.set('view engine', 'ejs');
 
-
-
 app.get('/', (req, res) => {
     res.render('login')
+})
+
+app.post('/register', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10)
+        console.log(hashedPassword)
+    } catch (err) {
+        console.error(err)
+    }
 })
 
 app.get('/home', (req, res) => {
