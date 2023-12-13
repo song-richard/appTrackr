@@ -10,3 +10,15 @@ registerBtn.addEventListener('click', async function () {
         console.error(err);
     };
 });
+
+loginBtn.addEventListener('click', async function () {
+    //Login Values
+    const email = document.querySelector('#loginEmail').value;
+    const password = document.querySelector('#loginPassword').value;
+    try {
+        const response = await axios.post('/login', { email, password });
+        console.log(response.data);
+    } catch (err) {
+        console.error(err);
+    }
+});
