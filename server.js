@@ -3,8 +3,10 @@ const app = express();
 const PORT = 3000
 const mongoCred = require('./config/config');
 const mongoose = require('mongoose');
-const JobApplication = require('./models/appSchema')
-const cors = require('cors')
+const JobApplication = require('./models/appSchema');
+const User = require('./models/userSchema');
+
+const cors = require('cors');
 const bcrypt = require('bcrypt');
 
 
@@ -22,12 +24,18 @@ app.get('/', (req, res) => {
 app.post('/register', async (req, res) => {
     try {
         const { email, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10)
-        console.log(hashedPassword)
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await User.create({ email: email, password: hashedPassword });
+        res.status(201).json({ message: 'Successfully posted Email/Password to MongoDB!' });
+        console.log(email);
+        console.log(hashedPassword);
     } catch (err) {
         console.error(err)
-    }
-})
+    };
+});
+
+//POST hashed password and email to DB
 
 app.get('/home', (req, res) => {
     res.render('home')
