@@ -7,7 +7,7 @@ const JobApplication = require('./models/appSchema');
 const User = require('./models/userSchema');
 
 const cors = require('cors');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 connectToMongoDB();
 
@@ -45,19 +45,26 @@ app.post('/login', async (req, res) => {
         console.log('Retrieved user password:', user ? user.password : 'User not found');
         console.log('Entered password:', password.trim());
 
-        if (user && (password === user.password)) {
-            console.log("MATCH!")
-            const applications = await JobApplication.find({ email: user.email }, {
-                job: 1,
-                company: 1,
-                applicationDate: 1,
-                status: 1,
-                notes: 1
-            });
-            res.json({ message: 'Login successful!', applications });
+        if (user) {
+            const isPasswordValid = await bcrypt.compare(password, user.password);
+
+            if (isPasswordValid) {
+                console.log("MATCH!");
+                const applications = await JobApplication.find({ email: user.email }, {
+                    job: 1,
+                    company: 1,
+                    applicationDate: 1,
+                    status: 1,
+                    notes: 1
+                });
+                res.json({ message: 'Login successful!', applications });
+            } else {
+                console.log('Invalid credentials');
+                res.status(401).json({ error: 'Invalid credentials' });
+            }
         } else {
-            console.log('Invalid credentials');
-            res.status(401).json({ error: 'Invalid credentials' });
+            console.log('User not found');
+            res.status(401).json({ error: 'User not found' });
         }
     } catch (err) {
         console.error(err);
