@@ -42,7 +42,11 @@ app.post('/login', async (req, res) => {
 
         const user = await User.findOne({ email });
 
-        if (user && await bcrypt.compare(password, user.password)) {
+        console.log('Retrieved user password:', user ? user.password : 'User not found');
+        console.log('Entered password:', password.trim());
+
+        if (user && (password === user.password)) {
+            console.log("MATCH!")
             const applications = await JobApplication.find({ email: user.email }, {
                 job: 1,
                 company: 1,
@@ -50,14 +54,14 @@ app.post('/login', async (req, res) => {
                 status: 1,
                 notes: 1
             });
-
             res.json({ message: 'Login successful!', applications });
         } else {
+            console.log('Invalid credentials');
             res.status(401).json({ error: 'Invalid credentials' });
         }
     } catch (err) {
         console.error(err);
-        res.status(500).send('Internal Server Error');
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
