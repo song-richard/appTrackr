@@ -36,7 +36,34 @@ app.post('/register', async (req, res) => {
 });
 
 //TODO: QUERY APPLICATIONS DEPENDING ON EMAIL/HASHED_PASSWORD MATCH
+app.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
 
+        const user = await User.findOne({ email });
+
+        console.log('Retrieved user password:', user ? user.password : 'User not found');
+        console.log('Entered password:', password.trim());
+
+        if (user && (password === user.password)) {
+            console.log("MATCH!")
+            const applications = await JobApplication.find({ email: user.email }, {
+                job: 1,
+                company: 1,
+                applicationDate: 1,
+                status: 1,
+                notes: 1
+            });
+            res.json({ message: 'Login successful!', applications });
+        } else {
+            console.log('Invalid credentials');
+            res.status(401).json({ error: 'Invalid credentials' });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 app.get('/home', (req, res) => {
     res.render('home');
