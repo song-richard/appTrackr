@@ -1,32 +1,26 @@
 console.log('listApps.js loaded!');
 
-document.addEventListener('DOMContentLoaded', function () {
-    retrieveAppCounts();
-    retrieveApps();
-
+document.addEventListener('DOMContentLoaded', async function () {
     const addBtnDOM = document.querySelector('#addBtn');
-    addBtnDOM.addEventListener('click', function () {
-        retrieveAppCounts();
-        retrieveApps();
+    addBtnDOM.addEventListener('click', async function () {
+        const user_id = await getUserID();
+        addApplication(user_id);
     });
+
+    const user_id = await getUserID();
+    retrieveAppCounts(user_id);
+    retrieveApps(user_id);
 });
 
-
-async function retrieveApps() {
+async function retrieveApps(user_id) {
     const listUL = document.querySelector('#appListUL');
     const interviewingUL = document.querySelector('#interviewingUL');
     const interviewedUL = document.querySelector('#interviewedUL');
     const rejectedUL = document.querySelector('#rejectedUL');
-    const offeredUL = document.querySelector('#offeredUL')
-
-    listUL.innerHTML = '';
-    interviewingUL.innerHTML = '';
-    interviewedUL.innerHTML = '';
-    rejectedUL.innerHTML = '';
-    offeredUL.innerHTML = '';
+    const offeredUL = document.querySelector('#offeredUL');
 
     try {
-        const response = await axios.get('/get-app');
+        const response = await axios.get(`/get-app/${user_id}`);
         const applications = response.data['application'];
 
         applications.forEach((app) => {
@@ -199,15 +193,6 @@ async function retrieveApps() {
                 editBtn.style.marginBottom = '20px';
                 deleteBtn.style.marginBottom = '20px';
             
-                editBtn.addEventListener('click', function () {
-                    const editOption = window.prompt(
-                        'What would you like to edit? (job, company, applicationDate, status, notes)'
-                    );
-                    if (editOption) {
-                        updateField(editOption.toLowerCase());
-                    }
-                });
-            
                 deleteBtn.addEventListener('click', function () {
                     const deleteOption = window.confirm('Are you sure you want to delete this?');
                     if (deleteOption) {
@@ -223,9 +208,21 @@ async function retrieveApps() {
     }
 }
 
-async function retrieveAppCounts() {
+async function getUserID() {
     try {
-        const response = await axios.get('/get-app-counts');
+        const response = await axios.get('/get-user-id');
+        const user_id = response.data.user_id;
+        console.log('User ID:', user_id);
+        return user_id;
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+}
+
+async function retrieveAppCounts(user_id) {
+    try {
+        const response = await axios.get(`/get-app-counts/${user_id}`);
         const counts = response.data.counts;
 
         document.getElementById('appliedCount').textContent = counts['Applied'] || 0;
@@ -235,5 +232,35 @@ async function retrieveAppCounts() {
         document.getElementById('offersCount').textContent = counts['Offered'] || 0;
     } catch (err) {
         console.log(err);
+    }
+}
+
+async function addApplication(user_id) {
+    try {
+        const formData = getApplicationFormData();
+        const response = await axios.post('/add-app', { ...formData, user_id });
+        console.log(response.data);
+
+        retrieveAppCounts(user_id);
+        retrieveApps(user_id);
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+function getApplicationFormData() {
+    const jobTitle = document.getElementById('jobTitleInput').value;
+    const company = document.getElementById('companyInput').value;
+    const applicationDate = document.getElementById('applicationDateInput').value;
+    const status = document.getElementById('statusInput').value;
+    const notes = document.getElementById('notesInput').value;
+
+    return {
+        job: jobTitle,
+        company,
+        applicationDate,
+        status,
+        notes,
     };
-};
+}
+

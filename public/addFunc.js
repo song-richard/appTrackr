@@ -36,11 +36,12 @@ document.addEventListener('DOMContentLoaded', function() {
 async function addApp() {
     try {
         const formData = getFormData();
-        console.log(formData)
-        await axios.post('/add-app', formData)
-        console.log("Posted to MongoDB!");
+        
+        const userId = req.user._id;
 
+        const response = await axios.post('/add-app', { ...formData, userId });
+        console.log(response.data);
     } catch (err) {
         console.error(err);
-    };
-};
+    }
+}

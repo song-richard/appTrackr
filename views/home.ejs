@@ -13,18 +13,19 @@
 <div class="container mx-auto p-8">
     <label>Add Application:
         <form class="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-white p-6 rounded-lg shadow-md">
-            <input id="jobTitle" type="text" placeholder="Job Title" class="p-3 border rounded">
-            <input id="company" type="text" placeholder="Company" class="p-3 border rounded">
-            <input id="applicationDate" type="date" class="p-3 border rounded">
-            <select id="status" class="p-3 border rounded">
-                <option>Applied</option>
-                <option>In Progress</option>
-                <option>Interviewed</option>
-                <option>Offered</option>
-                <option>Rejected</option>
-            </select>
-            <input id="notes" type="text" placeholder="Notes" class="p-3 border rounded col-span-2">
-            <button id="addBtn" type="button" class="p-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300">Add</button>
+<input id="jobTitleInput" type="text" placeholder="Job Title" class="p-3 border rounded">
+<input id="companyInput" type="text" placeholder="Company" class="p-3 border rounded">
+<input id="applicationDateInput" type="date" class="p-3 border rounded">
+<select id="statusInput" class="p-3 border rounded">
+    <option>Applied</option>
+    <option>In Progress</option>
+    <option>Interviewed</option>
+    <option>Offered</option>
+    <option>Rejected</option>
+</select>
+<input id="notesInput" type="text" placeholder="Notes" class="p-3 border rounded col-span-2">
+<button id="addBtn" type="button" class="p-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300">Add</button>
+
         </form>
     </label>
 
@@ -65,8 +66,6 @@
 
     </section>
 
-
-    
 </div>
 
     <script src="/addFunc.js"></script>
