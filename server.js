@@ -50,7 +50,7 @@ app.post('/login', async (req, res) => {
 
             if (isPasswordValid) {
                 console.log("MATCH!");
-                const applications = await JobApplication.find({ email: user.email }, {
+                const applications = await JobApplication.find({ email: user._id }, {
                     job: 1,
                     company: 1,
                     applicationDate: 1,
