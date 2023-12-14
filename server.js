@@ -118,7 +118,17 @@ app.post('/add-app', async (req, res) => {
             return res.status(400).json({ error: 'Job is required' });
         }
 
-        await JobApplication.create({ job, company, applicationDate, status, notes });
+        const user = req.user;
+
+        await JobApplication.create({
+            user: user._id,
+            job,
+            company,
+            applicationDate,
+            status,
+            notes,
+        });
+
         res.status(201).json({ message: 'Successfully posted to MongoDB!' });
     } catch (err) {
         console.error(err);
