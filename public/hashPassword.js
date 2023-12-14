@@ -21,6 +21,9 @@ loginBtn.addEventListener('click', async function () {
     try {
         const response = await axios.post('/login', { email, password });
         console.log(response.data);
+
+        window.location.href = '/home';
+
     } catch (err) {
         console.error(err);
     }
