@@ -77,8 +77,11 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/get-app', async (req, res) => {
+    const { job, company, applicationDate, status, notes } = req.body;
+
     try {
         const applications = await JobApplication.find({}, {
+            user: user._id,
             job: 1,
             company: 1,
             applicationDate: 1,
