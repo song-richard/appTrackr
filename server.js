@@ -5,6 +5,7 @@ const mongoCred = require('./config/config');
 const mongoose = require('mongoose');
 const JobApplication = require('./models/appSchema');
 const User = require('./models/userSchema');
+const passport = require('passport')
 
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
@@ -78,7 +79,7 @@ app.get('/home', (req, res) => {
 
 app.get('/get-app', async (req, res) => {
     const { job, company, applicationDate, status, notes } = req.body;
-
+    const user = req.user;
     try {
         const applications = await JobApplication.find({}, {
             user: user._id,
