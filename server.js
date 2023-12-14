@@ -9,9 +9,13 @@ const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
 const crypto = require('crypto');
+require('dotenv').config();
 
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
+
+const dbConnectionString = process.env.DB_CONNECTION_STRING;
+
 
 connectToMongoDB();
 
@@ -268,7 +272,7 @@ app.listen(`${PORT}`, () => {
 
 async function connectToMongoDB() {
   try {
-    await mongoose.connect(mongoCred);
+    await mongoose.connect(dbConnectionString);
     console.log('Connected to MongoDB!');
   } catch (err) {
     console.error(err);
