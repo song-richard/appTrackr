@@ -19,6 +19,12 @@ async function retrieveApps(user_id) {
     const rejectedUL = document.querySelector('#rejectedUL');
     const offeredUL = document.querySelector('#offeredUL');
 
+    listUL.innerHTML = '';
+    interviewingUL.innerHTML = '';
+    interviewedUL.innerHTML = '';
+    rejectedUL.innerHTML = '';
+    offeredUL.innerHTML = '';
+
     try {
         const response = await axios.get(`/get-app/${user_id}`);
         const applications = response.data['application'];
