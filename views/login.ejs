@@ -41,6 +41,14 @@
             </div>
         </div>
 
+        <div id="errorUserModal" class="modal hidden fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 items-center justify-center">
+            <div class="modal-content bg-white p-8 rounded-md text-center">
+                <p class="text-xl font-bold text-red-500">User already registered</p>
+                <p class="text-xl font-bold text-red-500">Please try again </p>
+                <button id="closeUserModalBtn" class="mt-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300">Close</button>
+            </div>
+        </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.2.0/bcrypt.min.js" integrity="sha512-BJZhA/ftU3DVJvbBMWZwp7hXc49RJHq0xH81tTgLlG16/OkDq7VbNX6nUnx+QY4bBZkXtJoG0b0qihuia64X0w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/hashPassword.js"></script>
     <script src="/loginFunc.js"></script>
