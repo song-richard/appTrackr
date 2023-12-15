@@ -26,10 +26,26 @@
             <button id="loginBtn" type="button" class="p-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300">Login</button>
         </form>
 
+        <div id="successModal" class="modal hidden fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 items-center justify-center">
+            <div class="modal-content bg-white p-8 rounded-md text-center">
+                <p class="text-xl font-bold text-green-500">Registered Successfully!</p>
+                <button id="closeSuccessModalBtn" class="mt-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300">Close</button>
+            </div>
+        </div>
+
+        <div id="errorModal" class="modal hidden fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 items-center justify-center">
+            <div class="modal-content bg-white p-8 rounded-md text-center">
+                <p class="text-xl font-bold text-red-500">Incorrect Password</p>
+                <p class="text-xl font-bold text-red-500">Please try again </p>
+                <button id="closeModalBtn" class="mt-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300">Close</button>
+            </div>
+        </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.2.0/bcrypt.min.js" integrity="sha512-BJZhA/ftU3DVJvbBMWZwp7hXc49RJHq0xH81tTgLlG16/OkDq7VbNX6nUnx+QY4bBZkXtJoG0b0qihuia64X0w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/hashPassword.js"></script>
     <script src="/loginFunc.js"></script>
 </div>
+
 
 </body>
 </html>
