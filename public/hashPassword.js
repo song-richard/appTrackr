@@ -13,6 +13,8 @@ registerBtn.addEventListener('click', async function () {
     try {
         await axios.post('/register', { email, password });
         showSuccessModal();
+        document.querySelector('#registerEmail').value = '';
+        document.querySelector('#registerPassword').value = '';
     } catch (err) {
         console.error(err);
     };
